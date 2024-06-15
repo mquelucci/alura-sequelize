@@ -1,11 +1,12 @@
 module.exports = (cpf) => {
     // Remova caracteres especiais
-    cpf = cpf.replace(/[^0-9]/g, '');
+    cpf = cpf.replace(/[^\d]/g, '');
 
     // Verifique se o CPF tem o tamanho correto
     if (cpf.length !== 11) {
         return false;
     }
+    
 
     // Calcule o primeiro dígito verificador
     let soma = 0;
@@ -13,12 +14,12 @@ module.exports = (cpf) => {
         soma += parseInt(cpf[i]) * (10 - i);
     }
 
-    let resto = soma % 11;
-    if (resto === 10 || resto === 11) {
+    let resto = (soma * 10) % 11;
+    if (resto == 10 || resto == 11) {
         resto = 0;
     }
 
-    if (resto !== parseInt(cpf[9])) {
+    if (resto != parseInt(cpf[9])) {
         return false;
     }
 
@@ -28,12 +29,12 @@ module.exports = (cpf) => {
         soma += parseInt(cpf[i]) * (11 - i);
     }
 
-    resto = soma % 11;
-    if (resto === 10 || resto === 11) {
+    resto = (soma * 10) % 11;
+    if (resto == 10 || resto == 11) {
         resto = 0;
     }
 
-    if (resto !== parseInt(cpf[10])) {
+    if (resto != parseInt(cpf[10])) {
         return false;
     }
 
